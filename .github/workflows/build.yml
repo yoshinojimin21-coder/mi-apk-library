@@ -18,8 +18,8 @@ jobs:
       - name: Install Gradle
         run: sudo apt-get update && sudo apt-get install -y gradle
 
-      - name: Build Debug APK
-        run: gradle assembleDebug
+      - name: Build App Module Debug APK
+        run: gradle :app:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
