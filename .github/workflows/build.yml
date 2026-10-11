@@ -23,14 +23,19 @@ jobs:
           sudo rm -f /usr/bin/gradle
           sudo ln -s /opt/gradle/bin/gradle /usr/bin/gradle
 
-      - name: Build Debug APK
+      - name: Find Project and Build Debug APK
         run: |
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          PROJ_DIR=$(find . -name "settings.gradle*" -exec dirname {} \;)
+          if [ -z "$PROJ_DIR" ]; then
+            echo "Error: No se encontró ningún archivo de configuración de Gradle"
+            exit 1
+          fi
+          echo "Proyecto encontrado en la carpeta: $PROJ_DIR"
+          cd "$PROJ_DIR"
+          gradle :app:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: '**/app/build/outputs/apk/debug/app-debug.apk'
