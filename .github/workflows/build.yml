@@ -15,17 +15,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Find and build APK
-        run: |
-          # Buscar dónde está gradlew y compilar desde esa carpeta
-          PROJECT_DIR=$(find . -name "gradlew" -exec dirname {} \;)
-          echo "Proyecto encontrado en: $PROJECT_DIR"
-          cd "$PROJECT_DIR"
-          chmod +x gradlew
-          ./gradlew assembleDebug
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: '**/app/build/outputs/apk/debug/app-debug.apk'
+          path: app/build/outputs/apk/debug/app-debug.apk
+        
