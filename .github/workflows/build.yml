@@ -15,11 +15,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Gradle 8.5
+      - name: Install Gradle 8.7
         run: |
-          wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
-          unzip -q gradle-8.5-bin.zip
-          sudo mv gradle-8.5 /opt/gradle
+          wget https://services.gradle.org/distributions/gradle-8.7-bin.zip
+          unzip -q gradle-8.7-bin.zip
+          sudo mv gradle-8.7 /opt/gradle
           sudo rm -f /usr/bin/gradle
           sudo ln -s /opt/gradle/bin/gradle /usr/bin/gradle
 
